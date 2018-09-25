@@ -1,0 +1,1 @@
+test_loop.go|7 col 12| : expected boolean or range expression, found simple statement (missing parentheses around composite literal?)
