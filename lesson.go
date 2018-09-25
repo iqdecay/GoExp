@@ -4,6 +4,14 @@ import (
 	"fmt"
 )
 
+type Location struct {
+	Loc string `xml:"loc"`
+}
+
+func (l Location) String() string {
+	return fmt.Sprintf(l.Loc)
+}
+
 func main() {
 
 	for i := 0; i < 20; i += 4 {
@@ -19,5 +27,7 @@ func main() {
 		fmt.Println("Do something !", x)
 		a += 4
 	}
+	b := Location{Loc: "string"}
+	fmt.Println(b)
 
 }
