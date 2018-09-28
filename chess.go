@@ -1,14 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
-
-//type Move struct {
-//// This type represents a move of a particular piece via the coordinates variation it entails
-//letter_variation int
-//number_variation int
-//}
+import "fmt"
 
 type ChessPieceType struct {
 	name string
@@ -23,12 +15,6 @@ type ChessPiece struct {
 	color          int // 0 is white 1 is black
 	id             int // each piece is identified by its unique id
 }
-
-/*type PieceSet struct {*/
-//// the number of pieces of each type that has to be created
-//piece_type ChessPieceType
-//number     int
-/*}*/
 
 func main() {
 	//Creating the complex moves
