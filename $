@@ -39,7 +39,7 @@ func main() {
 	chess_set[8] = []ChessPieceType{pawn}
 
 	//We create the game with the previously defined variables
-	chess_game := make(map[int]ChessPiece)
+	chess_game := []ChessPiece{}
 	for number, piece_slice := range chess_set {
 		for i := 0; i < len(piece_slice); i++ {
 			piece_type := piece_slice[i]
@@ -47,21 +47,14 @@ func main() {
 				id_white := len(chess_game) + 1
 				id_black := id_white + 1
 				//We create each piece for one color
-				chess_game[id_white] = ChessPiece{piece_type, 0, id_white}
-				chess_game[id_black] = ChessPiece{piece_type, 1, id_black}
+				chess_game = append(chess_game, ChessPiece{piece_type, 0, id_white})
+				chess_game = append(chess_game, ChessPiece{piece_type, 1, id_black})
 			}
+
 		}
 	}
-	// We create the board that will hold the position of the pieces
-	board := [8][8]int{}
-	// We create its string representation
-	board_rep := [8][8]string{}
-	for i := 0; i <8; i++ {
-		for j := 0; j <8; j++ {
-			board_rep[i][j] = "[]"
-			if i==j {
-				board_rep[i][j] = "x"
-			}
-		}
+	fmt.Println(len(chess_game))
+	for i := 0; i < len(chess_game); i++ {
+		fmt.Println(chess_game[i])
 	}
 }
