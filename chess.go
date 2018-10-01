@@ -1,6 +1,6 @@
 package main
 
-//import "fmt"
+import "fmt"
 
 type ChessPieceType struct {
 	name string
@@ -21,15 +21,13 @@ type ChessPiece struct {
 
 func main() {
 	// We create the board that will hold the position of the pieces
-	//board := [8][8]int{}
+	board := [8][8]int{}
 	// We create its string representation
 	board_rep := [8][8]string{}
 	for i := 0; i <8; i++ {
 		for j := 0; j <8; j++ {
-			board_rep[i][j] = "[]"
-			if i==j {
-				board_rep[i][j] = "x"
-			}
+			board_rep[i][j] = "_"
+			
 		}
 	}
 
@@ -41,7 +39,7 @@ func main() {
 	queen_list := append(square_list, 0)
 
 	//Creating the different types of pieces
-	bishop := ChessPieceType{"bishop", square_list, "F", []int{2,5}, []int{0,7}}
+	bishop := ChessPieceType{"bishop", square_list, "B", []int{2,5}, []int{0,7}}
 	knight := ChessPieceType{"knight", []int{-2, 2}, "H",[]int{1,6}, []int{0,7}}
 	king := ChessPieceType{"king", []int{-1, 0, 1}, "K", []int{4}, []int{0,7}}
 	queen := ChessPieceType{"queen", queen_list, "Q", []int{3}, []int{0,7}}
@@ -68,19 +66,18 @@ func main() {
 			}
 		}
 	}
-       /* for _, piece := range chess_game {*/
-		//if piece.piece_type =="pawn"{
-			//if piece.color == 0{
-				//board[1][piece.number] = piece.id
-				//board_rep[1][piece.number] = piece.rep
-			//}
-			//if piece.color == 1{
-				//board[6][piece.number] = piece.id
-				//board_rep[6][piece.number] = piece.rep
-			//}
-			//}
-		//if piece.piece_type =="bishop"{
+	for _, piece := range chess_game {
+		id := piece.id
+		number := piece.number
+		piece_type := piece.chesspiecetype
+		color := piece.color
+		j := piece_type.original_x[number]
+		i := piece_type.original_y[color]
+		board_rep[i][j] = piece_type.ascii_rep
+		board[i][j] = id
 
-
-		/*}*/
+		}
+	for _, x := range board_rep{
+		fmt.Println(x)
+	}
 }
