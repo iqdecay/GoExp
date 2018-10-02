@@ -6,17 +6,17 @@ type ChessPieceType struct {
 	name string
 	// if the vertical variation of a move is i, and the horizontal one is j,
 	// then if i*j is not in "moves", then it is not a legal move for the piece
-	moves     []int
-	ascii_rep string // used for board representation in CLI
-	original_x []int // the original x positions of a ChessPiece
-	original_y []int // the original y positions of a ChessPiece
+	moves      []int
+	ascii_rep  string // used for board representation in CLI
+	original_x []int  // the original x positions of a ChessPiece
+	original_y []int  // the original y positions of a ChessPiece
 }
 
 type ChessPiece struct {
 	chesspiecetype ChessPieceType
 	color          int // 0 is white 1 is black
 	id             int // each piece is identified by its unique id
-	number	       int // over the number of piece of a certain type
+	number         int // over the number of piece of a certain type
 }
 
 func main() {
@@ -24,10 +24,10 @@ func main() {
 	board := [8][8]int{}
 	// We create its string representation
 	board_rep := [8][8]string{}
-	for i := 0; i <8; i++ {
-		for j := 0; j <8; j++ {
+	for i := 0; i < 8; i++ {
+		for j := 0; j < 8; j++ {
 			board_rep[i][j] = "_"
-			
+
 		}
 	}
 
@@ -39,12 +39,12 @@ func main() {
 	queen_list := append(square_list, 0)
 
 	//Creating the different types of pieces
-	bishop := ChessPieceType{"bishop", square_list, "B", []int{2,5}, []int{0,7}}
-	knight := ChessPieceType{"knight", []int{-2, 2}, "H",[]int{1,6}, []int{0,7}}
-	king := ChessPieceType{"king", []int{-1, 0, 1}, "K", []int{4}, []int{0,7}}
-	queen := ChessPieceType{"queen", queen_list, "Q", []int{3}, []int{0,7}}
-	tower := ChessPieceType{"tower", []int{0}, "T", []int{0,7}, []int{0,7}}
-	pawn := ChessPieceType{"pawn", []int{-1, 0, 1}, "P", []int{0,1,2,3,4,5,6,7}, []int{1,6}}
+	bishop := ChessPieceType{"bishop", square_list, "B", []int{2, 5}, []int{0, 7}}
+	knight := ChessPieceType{"knight", []int{-2, 2}, "H", []int{1, 6}, []int{0, 7}}
+	king := ChessPieceType{"king", []int{-1, 0, 1}, "K", []int{4}, []int{0, 7}}
+	queen := ChessPieceType{"queen", queen_list, "Q", []int{3}, []int{0, 7}}
+	tower := ChessPieceType{"tower", []int{0}, "T", []int{0, 7}, []int{0, 7}}
+	pawn := ChessPieceType{"pawn", []int{-1, 0, 1}, "P", []int{0, 1, 2, 3, 4, 5, 6, 7}, []int{1, 6}}
 
 	//Each pieces appears a certain number of time
 	chess_set := make(map[int][]ChessPieceType)
@@ -71,13 +71,14 @@ func main() {
 		number := piece.number
 		piece_type := piece.chesspiecetype
 		color := piece.color
+		// Depending on its number, we place it differently
 		j := piece_type.original_x[number]
+		// Depending  on the color, it is either on the top or bottom row
 		i := piece_type.original_y[color]
 		board_rep[i][j] = piece_type.ascii_rep
 		board[i][j] = id
-
-		}
-	for _, x := range board_rep{
+	}
+	for _, x := range board_rep {
 		fmt.Println(x)
 	}
 }
