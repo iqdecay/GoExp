@@ -23,7 +23,7 @@ func main() {
 
 func fetch(url string, ch chan <- string) {
 	start := time.Now()
-	resp, err := http.Get(url)
+/bin/bash: q: command not found
 	if err != nil {
 		ch <- fmt.Sprint(err) // send to channel ch
 		return
