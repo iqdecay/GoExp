@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	//"bufio"
-	//"os"
+	"bufio"
+	"os"
 )
 type ChessPieceType struct {
 	name string
@@ -23,15 +23,21 @@ type ChessPiece struct {
 }
 
 func GetUserInput(colourInt int) (userMove string) {
-	//reader := bufio.NewReader(os.Stdin)
 	var colour string
 	if colourInt == 0 {
 		colour = "white"
 	} else {
 		colour = "black"
 	}
-	
-	return colour
+
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Printf("Enter the next %s move, then press Enter:\n",colour)
+	userMove, err := reader.ReadString('\n')
+	if err != nil {
+		return GetUserInput(colourInt)
+	}else {
+		return userMove
+	}
 }
 
 func main() {
@@ -98,8 +104,9 @@ func main() {
 		board_rep[i][j] = piece_type.ascii_rep
 		board[i][j] = id
 	}
+	board_rep[2][3] = "x"
 	for _, x := range board_rep {
 		fmt.Println(x)
 	}
-	fmt.Println(GetUserInput(1))
+	//fmt.Println(GetUserInput(1))
 }
