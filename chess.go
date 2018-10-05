@@ -45,13 +45,19 @@ func main() {
 
 		}
 	}
-
 	//Creating the complex moves
 	var square_list = []int{}
 	for i := 1; i < 9; i++ {
-		square_list = append(square_list, i*i, -i*i)
-	}
+			square_list = append(square_list, i*i, -i*i)
+		}
 	queen_list := append(square_list, 0)
+	//Create the mapping between moves and coordinates
+	letterToInt := make(map[string]int)
+	letters := [8]string{"a","b","c","d","e","f","g","h"}
+	for index, letter := range letters {
+		fmt.Println(index, letter)
+	}
+	
 
 	//Creating the different types of pieces
 	bishop := ChessPieceType{"bishop", square_list, "B", []int{2, 5}, []int{0, 7}}
@@ -107,5 +113,4 @@ func main() {
 	for _, x := range board_rep {
 		fmt.Println(x)
 	}
-	fmt.Println(GetUserInput("black"))
 }
