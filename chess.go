@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
-
+import (
+	"fmt"
+	//"bufio"
+	//"os"
+)
 type ChessPieceType struct {
 	name string
 	// if the vertical variation of a move is i, and the horizontal one is j,
@@ -14,12 +17,29 @@ type ChessPieceType struct {
 
 type ChessPiece struct {
 	chesspiecetype ChessPieceType
-	color          int // 0 is white 1 is black
+	colour          int // 0 is white 1 is black
 	id             int // each piece is identified by its unique id
 	number         int // over the number of piece of a certain type
 }
 
+func GetUserInput(colourInt int) (userMove string) {
+	//reader := bufio.NewReader(os.Stdin)
+	var colour string
+	if colourInt == 0 {
+		colour = "white"
+	} else {
+		colour = "black"
+	}
+	
+	return colour
+}
+
 func main() {
+	// We create a map for the colours
+	colours := make(map[int]string)
+	colours[0] = "white"
+	colours[1] = "black"
+
 	// We create the board that will hold the position of the pieces
 	board := [8][8]int{}
 	// We create its string representation
@@ -60,7 +80,7 @@ func main() {
 			for j := 0; j < number; j++ {
 				id_white := len(chess_game) + 1
 				id_black := id_white + 1
-				//We create each piece for one color
+				//We create each piece for one colour
 				chess_game[id_white] = ChessPiece{piece_type, 0, id_white, j}
 				chess_game[id_black] = ChessPiece{piece_type, 1, id_black, j}
 			}
@@ -70,15 +90,16 @@ func main() {
 		id := piece.id
 		number := piece.number
 		piece_type := piece.chesspiecetype
-		color := piece.color
+		colour := piece.colour
 		// Depending on its number, we place it differently
 		j := piece_type.original_x[number]
-		// Depending  on the color, it is either on the top or bottom row
-		i := piece_type.original_y[color]
+		// Depending  on the colour, it is either on the top or bottom row
+		i := piece_type.original_y[colour]
 		board_rep[i][j] = piece_type.ascii_rep
 		board[i][j] = id
 	}
 	for _, x := range board_rep {
 		fmt.Println(x)
 	}
+	fmt.Println(GetUserInput(1))
 }
