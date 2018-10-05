@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"bufio"
 	"os"
+	"strings"
 )
 type ChessPieceType struct {
 	name string
@@ -17,35 +18,23 @@ type ChessPieceType struct {
 
 type ChessPiece struct {
 	chesspiecetype ChessPieceType
-	colour          int // 0 is white 1 is black
+	colour         string
 	id             int // each piece is identified by its unique id
 	number         int // over the number of piece of a certain type
 }
 
-func GetUserInput(colourInt int) (userMove string) {
-	var colour string
-	if colourInt == 0 {
-		colour = "white"
-	} else {
-		colour = "black"
-	}
-
+func GetUserInput(colour string) (userMove string) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Enter the next %s move, then press Enter:\n",colour)
 	userMove, err := reader.ReadString('\n')
 	if err != nil {
-		return GetUserInput(colourInt)
+		return GetUserInput(colour)
 	}else {
 		return userMove
 	}
 }
 
 func main() {
-	// We create a map for the colours
-	colours := make(map[int]string)
-	colours[0] = "white"
-	colours[1] = "black"
-
 	// We create the board that will hold the position of the pieces
 	board := [8][8]int{}
 	// We create its string representation
@@ -87,8 +76,8 @@ func main() {
 				id_white := len(chess_game) + 1
 				id_black := id_white + 1
 				//We create each piece for one colour
-				chess_game[id_white] = ChessPiece{piece_type, 0, id_white, j}
-				chess_game[id_black] = ChessPiece{piece_type, 1, id_black, j}
+				chess_game[id_white] = ChessPiece{piece_type, "white", id_white, j}
+				chess_game[id_black] = ChessPiece{piece_type, "black", id_black, j}
 			}
 		}
 	}
@@ -100,13 +89,23 @@ func main() {
 		// Depending on its number, we place it differently
 		j := piece_type.original_x[number]
 		// Depending  on the colour, it is either on the top or bottom row
-		i := piece_type.original_y[colour]
+		var colour_id int
+		if colour == "white" {
+			colour_id = 1
+		} else {
+			colour_id = 0
+		}
+		i := piece_type.original_y[colour_id]
 		board_rep[i][j] = piece_type.ascii_rep
+		// if the piece is white, put it in lowercase
+		if colour == "white" {
+			board_rep[i][j] = "w"+strings.ToLower(piece_type.ascii_rep)
+		}
 		board[i][j] = id
 	}
 	board_rep[2][3] = "x"
 	for _, x := range board_rep {
 		fmt.Println(x)
 	}
-	//fmt.Println(GetUserInput(1))
+	fmt.Println(GetUserInput("black"))
 }
