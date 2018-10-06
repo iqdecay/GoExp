@@ -27,6 +27,8 @@ func GetUserInput(colour string) (userMove string, err error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Enter the next %s move, then press Enter:\n",colour)
 	userMove, err = reader.ReadString('\n')
+	if len(userMove) != 4 {
+		return GetUserInput(colour), nil
 	if err != nil {
 		return GetUserInput(colour), err
 	}else {
