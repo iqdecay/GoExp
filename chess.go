@@ -34,9 +34,6 @@ func GetUserInput(colour string) (userMove string, err error) {
 	}
 }
 
-//func TranslateMove(move string) (translatedMove [4]int{}, err error) {
-
-func IsInArray(letter string, letterArray [8]string)
 
 
 
@@ -61,8 +58,8 @@ func main() {
 	queen_list := append(square_list, 0)
 
 	//Create the mapping between moves and coordinates
-	lettersToInt := make(map[string][int])
-	letters := [8]string{"a","b","c","d","e","f","g","h"}
+	lettersToInt := make(map[byte][int])
+	letters := [8]byte{'a','b','c','d','e','f','g','h'}
 	for index, letter := range letters {
 		lettersToInt[letter] = index
 	}
@@ -97,6 +94,7 @@ func main() {
 			}
 		}
 	}
+	// After building the set, we must place it on the board
 	for _, piece := range chess_game {
 		id := piece.id
 		number := piece.number
