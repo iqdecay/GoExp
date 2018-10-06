@@ -23,18 +23,22 @@ type ChessPiece struct {
 	number         int // over the number of piece of a certain type
 }
 
-func GetUserInput(colour string) (userMove string) {
+func GetUserInput(colour string) (userMove string, err error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Enter the next %s move, then press Enter:\n",colour)
-	userMove, err := reader.ReadString('\n')
+	userMove, err = reader.ReadString('\n')
 	if err != nil {
-		return GetUserInput(colour)
+		return GetUserInput(colour), err
 	}else {
-		return userMove
+		return userMove, nil
 	}
 }
 
+//func TranslateMove(move string) (translatedMove [4]int{}) {
+
+
 func main() {
+	//--------------------- GAME INITIALIZATION------------------------------
 	// We create the board that will hold the position of the pieces
 	board := [8][8]int{}
 	// We create its string representation
@@ -51,8 +55,8 @@ func main() {
 			square_list = append(square_list, i*i, -i*i)
 		}
 	queen_list := append(square_list, 0)
+
 	//Create the mapping between moves and coordinates
-	letterToInt := make(map[string]int)
 	letters := [8]string{"a","b","c","d","e","f","g","h"}
 	for index, letter := range letters {
 		fmt.Println(index, letter)
@@ -109,8 +113,28 @@ func main() {
 		}
 		board[i][j] = id
 	}
-	board_rep[2][3] = "x"
-	for _, x := range board_rep {
-		fmt.Println(x)
+	//--------------------------- BEGINNING THE ACTUAL GAME ---------------------------------------
+	var continueGame := true // Will be false whenever there is a checkmate
+	var nextTurn := "white" // Holds the color of the next player to play a move
+	for continueGame {
+		/*
+		The structure will be as follow : 
+			°play move
+				if move illegal:  // for now a move is legal iff
+				it can perform it, if it places you in a check 
+				situation, it is not mentioned
+					return to °
+				if move is eating a piece :
+					eat the piece (remove eaten piece)
+				update position due to move
+			if move now is a check 
+				say "check"
+				if checkmate :
+					continueGame = false
+			nextTurn changes color
+		*/
+		nextMove := GetUserInput(nextTurn)
+
+
 	}
 }
