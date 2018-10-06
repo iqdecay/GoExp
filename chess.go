@@ -34,7 +34,11 @@ func GetUserInput(colour string) (userMove string, err error) {
 	}
 }
 
-//func TranslateMove(move string) (translatedMove [4]int{}) {
+//func TranslateMove(move string) (translatedMove [4]int{}, err error) {
+
+func IsInArray(letter string, letterArray [8]string)
+
+
 
 
 func main() {
@@ -57,10 +61,12 @@ func main() {
 	queen_list := append(square_list, 0)
 
 	//Create the mapping between moves and coordinates
+	lettersToInt := make(map[string][int])
 	letters := [8]string{"a","b","c","d","e","f","g","h"}
 	for index, letter := range letters {
-		fmt.Println(index, letter)
+		lettersToInt[letter] = index
 	}
+
 	
 
 	//Creating the different types of pieces
@@ -114,8 +120,8 @@ func main() {
 		board[i][j] = id
 	}
 	//--------------------------- BEGINNING THE ACTUAL GAME ---------------------------------------
-	var continueGame := true // Will be false whenever there is a checkmate
-	var nextTurn := "white" // Holds the color of the next player to play a move
+	continueGame := true // Will be false whenever there is a checkmate
+	nextTurn := "white" // Holds the color of the next player to play a move
 	for continueGame {
 		/*
 		The structure will be as follow : 
@@ -123,6 +129,7 @@ func main() {
 				if move illegal:  // for now a move is legal iff
 				it can perform it, if it places you in a check 
 				situation, it is not mentioned
+				The legality of the move should be checked all at once
 					return to °
 				if move is eating a piece :
 					eat the piece (remove eaten piece)
@@ -133,7 +140,12 @@ func main() {
 					continueGame = false
 			nextTurn changes color
 		*/
-		nextMove := GetUserInput(nextTurn)
+		var err error
+		nextMove, err := GetUserInput(nextTurn)
+		if err != nil {
+			for err != nil {
+				nextMove, err := GetUserInput(nextTurn)
+			}
 
 
 	}
