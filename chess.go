@@ -23,16 +23,26 @@ type ChessPiece struct {
 	number         int // over the number of piece of a certain type
 }
 
-func GetUserInput(colour string) (userMove string, err error) {
+type Colour struct {
+	colour string
+}
+
+func Change(c Colour)  {
+	if c.colour == "white" {
+		c.colour = "black"
+	} else{
+		c.colour = "white"
+	}
+}
+
+func GetUserInput(c Colour) (userMove string) {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("Enter the next %s move, then press Enter:\n",colour)
+	fmt.Printf("Enter the next %s move, then press Enter:\n",c.colour)
 	userMove, err = reader.ReadString('\n')
-	if len(userMove) != 4 {
-		return GetUserInput(colour), nil
 	if err != nil {
-		return GetUserInput(colour), err
+		return GetUserInput(c.colour)
 	}else {
-		return userMove, nil
+		return userMove
 	}
 }
 
@@ -60,7 +70,7 @@ func main() {
 	queen_list := append(square_list, 0)
 
 	//Create the mapping between moves and coordinates
-	lettersToInt := make(map[byte][int])
+	lettersToInt := make(map[byte]int])
 	letters := [8]byte{'a','b','c','d','e','f','g','h'}
 	for index, letter := range letters {
 		lettersToInt[letter] = index
@@ -119,9 +129,10 @@ func main() {
 		}
 		board[i][j] = id
 	}
+
 	//--------------------------- BEGINNING THE ACTUAL GAME ---------------------------------------
 	continueGame := true // Will be false whenever there is a checkmate
-	nextTurn := "white" // Holds the color of the next player to play a move
+	turnColour := Colour{"white"}// Holds the color of the next player to play a move
 	for continueGame {
 		/*
 		The structure will be as follow : 
@@ -138,14 +149,17 @@ func main() {
 				say "check"
 				if checkmate :
 					continueGame = false
-			nextTurn changes color
+			turnColour changes color
 		*/
-		var err error
-		nextMove, err := GetUserInput(nextTurn)
-		if err != nil {
-			for err != nil {
-				nextMove, err := GetUserInput(nextTurn)
-			}
+		userMove = GetUserInput(turnColour)
+		playMove(userMove)
+		if ThereIsCheckmate(board) {
+			continueGame = false
+			fmt.Println("%s won the game !", turnColour)
+		}
+		Change(turnColour)
+		
+
 
 
 	}
