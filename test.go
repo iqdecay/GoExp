@@ -1,30 +1,18 @@
 package main
 
 import (
-	//"bufio"
 	"fmt"
-	//"os"
 )
 
 func main() {
-       /* reader := bufio.NewReader(os.Stdin)*/
-	//fmt.Println("Enter your name :")
-	//text, _ := reader.ReadString('\n')
-	//fmt.Println(text)
-	//lettersToInt := make(map[byte]int)
-	//letters := [8]byte{'a','b','c','d','e','f','g','h'}
-	//for index, letter := range letters {
-		//lettersToInt[letter] = index
-	//}
-	//a := "abcde"
-
-	//fmt.Println(lettersToInt[a[2]])
-	a := `learning go is pretty hard 
-when you	think
-	about 
-	it, isn't \x000 it ?
-	`
-	fmt.Println(a)
-	
-
+	ages := map[string]int{
+		"bob": 14,
+		"jean": 15,
+		"victor": 21,
+	}
+	age, ok := ages["bob"]
+	age1, ok1 := ages["albane"]
+	fmt.Println(age, ok, age1, ok1)
+	var b bool
+	fmt.Println(b)
 }
