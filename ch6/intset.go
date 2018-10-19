@@ -16,10 +16,12 @@ func (s *IntSet) Has(x int) bool {
 func (s *IntSet) Remove(x int) {
 	word, bit := x/64, uint64(x%64)
 	if word < len(s.words) {
-		s.words[word] = s.words[word]&(
-
+		if s.words[word]&(1<<uint(bit)) != 0 {
+			s.words[word] -= (1<<uint(bit))
+		}
 	}
 }
+
 func (s *IntSet) Add(x int) {
 	word, bit := x/64, uint64(x%64)
 	for word >= len(s.words) {
