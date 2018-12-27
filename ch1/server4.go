@@ -13,18 +13,17 @@ import (
 	"math/rand"
 )
 
-var palette = []color.Color{color.Black, color.RGBA{0x00,0xFF,0x00,0xFF}}
+var palette = []color.Color{color.Black, color.White}
 
 const(
 	blackIndex = 0 // first color in palette
-	greenIndex = 1 // next color in palette
+	whiteIndex = 1 // next color in palette
 )
 
 
 var mu sync.Mutex
 var count int
 func main() {
-	
 	handler := func(w http.ResponseWriter, r *http.Request){
 		lissajous(w)
 	}
@@ -50,7 +49,7 @@ func lissajous(out io.Writer){
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
 			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5),
-			greenIndex)
+			whiteIndex)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
